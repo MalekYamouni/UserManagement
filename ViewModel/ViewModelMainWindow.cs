@@ -25,9 +25,9 @@ namespace UserManagement.ViewModel
         private string _newEmail;
 
         public RelayCommand AddNewUserCommand => new RelayCommand(execute => AddNewUser(), canExecute => !string.IsNullOrWhiteSpace(NewFirstName) && !string.IsNullOrWhiteSpace(NewLastName) && !string.IsNullOrWhiteSpace(NewEmail));
-        public RelayCommand MarkAsInactiveCommand => new RelayCommand(execute => MarkAsInactive());
-        public RelayCommand MarkAsActiveCommand => new RelayCommand(execute => MarkAsActive());
-        public RelayCommand MarkAsLockedCommand => new RelayCommand(execute => MarkAsLocked());
+        public RelayCommand MarkAsInactiveCommand => new RelayCommand(execute => MarkAsInactive(), canExecute => SelectedUser != null && SelectedUser.Status != UserStatus.Inactive);
+        public RelayCommand MarkAsActiveCommand => new RelayCommand(execute => MarkAsActive(), canExecute => SelectedUser != null && SelectedUser.Status != UserStatus.Active);
+        public RelayCommand MarkAsLockedCommand => new RelayCommand(execute => MarkAsLocked(), canExecute => SelectedUser != null && SelectedUser.Status != UserStatus.Locked);
 
 
         public UserModel SelectedUser
